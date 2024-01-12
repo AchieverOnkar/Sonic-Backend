@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+</head>
+<body>
+
+	<h1>Songs</h1>
+	<table border>
+
+		<thead>
+			<tr>
+				<td>Poster</td>
+				<td>Artist</td>
+				<td>Song</td>
+				<td>Genre</td>
+				<td>Play</td>
+				<td>Add to Favorite</td>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr th:each="songs : ${songsList}">
+				<!-- Use the <img> tag to display the image -->
+				<td><img th:src="${songs.posterLink}" alt="Poster"
+					style="max-width: 50px; max-height: 50px;" /></td>
+				<td th:text="${songs.artist}"></td>
+				<td th:text="${songs.name}"></td>
+				<td th:text="${songs.genre}"></td>
+				<td>
+				    <audio controls="controls">
+				       <source th:src="${songs.link}" type="audio/mpeg">
+				    </audio>
+				</td>
+				<td>
+				     <form action="/addToFavorite" method="post">
+                        <input type="hidden" name="songId" th:value="${songs.id}" />
+                        <button type="submit">Add</button>
+                    </form>
+                </td>
+			</tr>
+
+		</tbody>
+
+	</table>
+
+</body>
+</html>
