@@ -16,4 +16,10 @@ public interface UserService {
 
 	void updateUser(User user);
 
+	Boolean getPremiumStatus(String email);
+
+	Boolean validateSecurityQuestion(String securityQuestion, String securityAnswer, String email);
+
+
+
 }

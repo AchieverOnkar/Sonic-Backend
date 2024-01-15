@@ -6,6 +6,45 @@
 </head>
 <body>
 <h1>View favorite</h1>
+	<table border>
+
+		<thead>
+			<tr>
+				<td>Poster</td>
+				<td>Artist</td>
+				<td>Song</td>
+				<td>Genre</td>
+				<td>Play</td>
+				<td>Remove</td>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr th:each="songs : ${favoriteSongs}">
+				<td><img th:src="${songs.posterLink}" alt="Poster"
+					style="max-width: 50px; max-height: 50px;" /></td>
+				<td th:text="${songs.artist}"></td>
+				<td th:text="${songs.name}"></td>
+				<td th:text="${songs.genre}"></td>
+				<td>
+				    <audio controls="controls">
+				       <source th:src="${songs.link}" type="audio/mpeg">
+				    </audio>
+				</td>
+				<td>
+				    <form action="/removeFromFavorite" method="post">
+                        <input type="hidden" name="songId" th:value="${songs.id}" />
+                        
+                        <button type="submit">Remove</button>
+                    </form>
+				</td>
+				
+			</tr>
+
+		</tbody>
+
+	</table>
+
 
 </body>
 </html>
