@@ -2,7 +2,6 @@ package com.tunehub.demo.entity;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,7 +13,7 @@ import jakarta.persistence.ManyToOne;
 @Entity(name = "Songs")
 public class Song {
 	@Id 
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	int id;
 	String name;
 	String artist;
@@ -23,7 +22,6 @@ public class Song {
 	String link;
 	
 	@ManyToOne
-//	@JsonManagedReference // Prevents infinite recursion during serialization
     private Artists artistObject;
 	
 	@ManyToMany

@@ -8,6 +8,4 @@ public interface ArtistRepository extends JpaRepository<Artists, Integer>{
 
 	Artists getByName(String name);
 
-	
-
 }

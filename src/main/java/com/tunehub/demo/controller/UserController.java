@@ -1,28 +1,20 @@
 package com.tunehub.demo.controller;
 
-import java.util.Map;
-import java.util.HashMap;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
-import com.tunehub.demo.entity.ChangePassword;
-import com.tunehub.demo.entity.LoginData;
 import com.tunehub.demo.entity.User;
 import com.tunehub.demo.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
 
-@CrossOrigin("*")
-@RestController
+@Controller
 public class UserController {
 
 	@Autowired
@@ -30,7 +22,7 @@ public class UserController {
 
 	// request will come from register page
 	@PostMapping("/register")
-	public String addUser(@RequestBody User user) {
+	public String addUser(@ModelAttribute User user) {
 		System.out.println("User data: " + user);
 		// that method will return truth value
 		Boolean userStatus = uService.emailExist(user.getEmail()); // method to autheticate uniqueEmail
@@ -45,7 +37,7 @@ public class UserController {
 				return "adminhome";
 			} else {
 				// after that navigate to user home page
-				return "dashboard";
+				return "userhome";
 			}
 		} else {
 			// print msg on consol
@@ -58,33 +50,42 @@ public class UserController {
 
 	// request will come from login page
 	@PostMapping("/validate")
-	public Map<String, Object> validateLogin(@RequestBody LoginData data, HttpSession session, Model model) {
-		Map<String, Object> response = new HashMap<>();
-		String email = data.getEmail();
-		String password = data.getPassword();
+	public String validateLogin(@RequestParam String email, @RequestParam String password, HttpSession session,
+			Model model) {
 
+		// search further only if email is present inside db
 		if (uService.emailExist(email)) {
+			// this method will check whether credentials are present inside the db
 			Boolean valid = uService.validateLogin(email, password);
-			System.out.println("is valid ?"+valid);
 
+			// this means credentials are correct
 			if (valid) {
+				// adding the email of the user as variable into session object
 				session.setAttribute("email", email);
+
+				// fetching and sending user premium status
 				Boolean isPremium = uService.getPremiumStatus(email);
+				System.out.println("premium status :" + isPremium);
+				model.addAttribute("isPremium", isPremium);
+
+				// this method will return the role of user from the db
 				String role = uService.getRole(email);
 
-				response.put("success", true);
-				response.put("role", role);
-				response.put("isPremium", isPremium);
-			} else {
-				response.put("success", false);
-				response.put("noPassword",true);
-			}
-		} else {
-			response.put("success", false);
-			response.put("noEmail",true);
-		}
+				// based on role of user redirecting on diffrent pages
+				if (role.equals("admin")) {
+					return "adminhome";
+				} else {
 
-		return response;
+					return "userhome";
+				}
+			} else {// login failed due incorrect password
+				// giving another try to login
+				return "login";
+			}
+		} else {// login failed due to email not present inside db
+			// giving another try to login
+			return "login";
+		}
 	}
 
 	@GetMapping("/forgotPassword")
@@ -93,13 +94,9 @@ public class UserController {
 	}
 
 	@PostMapping("/resetPassword")
-	public String resetPassword(@RequestBody User user, Model model) {
+	public String resetPassword(@RequestParam String email, @RequestParam String securityQuestion,
+			@RequestParam String securityAnswer, Model model) {
 
-		String email =user.getEmail();
-		String securityQuestion = user.getSecurityQuestion();
-		String securityAnswer = user.getSecurityAnswer();
-		
-		System.out.println(email+securityQuestion+securityAnswer);
 		// checking whether user exist with email
 		Boolean emailExist = uService.emailExist(email);
 		if (emailExist) {
@@ -114,10 +111,8 @@ public class UserController {
 	}
 
 	@PostMapping("/changePassword")
-	public String changePassword( @RequestBody ChangePassword newdata) {
-		User user = uService.getUser(newdata.getEmail());
-		
-		String newPassword =  newdata.getNewPassword();
+	public String changePassword(@RequestParam String email, @RequestParam String newPassword) {
+		User user = uService.getUser(email);
 		user.setPassword(newPassword);
 		uService.updateUser(user);
 
