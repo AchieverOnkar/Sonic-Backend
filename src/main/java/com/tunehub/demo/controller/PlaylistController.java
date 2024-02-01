@@ -6,18 +6,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.tunehub.demo.entity.Playlist;
 import com.tunehub.demo.entity.Song;
 import com.tunehub.demo.service.PlaylistService;
 import com.tunehub.demo.service.SongService;
 
-
-@Controller  
+@CrossOrigin("*")
+@RestController  
 public class PlaylistController {
     @Autowired
 	SongService songService;
@@ -33,20 +36,21 @@ public class PlaylistController {
 		
 	}
 	@PostMapping("/addPlaylist")
-	public String addPlaylist(@ModelAttribute Playlist playlist) {
+	public String addPlaylist(@RequestBody Playlist playlist) {
 		
 		//adding the playlist to db
 		playlistService.addPlaylist(playlist);
 		System.out.println("playlist added");
-		//whenever we are adding playlist we also have to update playlist for songs
+		//whenever we are adding playlist we also have to update that songs and add the playlist name for songs
 		List<Song> songList = playlist.getSongs(); //getting songlist using setter method
-		for(Song s : songList) {
-			//adding playlist object in each song object i.e achiving manytomany for songs
-			//first getting the playlist list from song which will be empty then adding current playlist obj into it
-			s.getPlaylists().add(playlist);
-			//after making changes to song oject saving/updatign the song in db
-			songService.updateSong(s);
-		}
+		System.out.println("fuck you:"+songList);
+//		for(Song s : songList) {
+//			//adding playlist object in each song object i.e achiving manytomany for songs
+//			//first getting the playlist list from song which will be empty then adding current playlist obj into it
+//			s.getPlaylists().add(playlist);
+//			//after making changes to song oject saving/updatign the song in db
+//			songService.updateSong(s);
+//		}
 		return "adminhome";
 		
 		
@@ -68,7 +72,7 @@ public class PlaylistController {
 	}
 	
 	@PostMapping("/updatePlaylist")
-	public String updatePlaylist(@ModelAttribute Playlist playlist, @RequestParam List<Integer> removeSongs, Model model) {
+	public String updatePlaylist(@RequestBody Playlist playlist, @RequestParam List<Integer> removeSongs, Model model) {
 		//fetching original songlist for that playlist
 		List<Song> originalSongs = playlistService.getPlaylistById(playlist.getId()).getSongs();
 		

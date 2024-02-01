@@ -2,6 +2,8 @@ package com.tunehub.demo.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +21,7 @@ public class Artists {
 	String cover;
 	String profile;
 	@OneToMany
+//	@JsonBackReference
 	List<Song> songs;
 	
 	
