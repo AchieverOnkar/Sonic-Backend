@@ -12,4 +12,6 @@ public interface ArtistService {
 
 	List<Artists> getAllArtists();
 
+	Artists getArtistById(int id);
+
 }
