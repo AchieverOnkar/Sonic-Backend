@@ -9,8 +9,8 @@
 		<version>3.2.1</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.tunehub</groupId>
-	<artifactId>tunehub</artifactId>
+	<groupId>com.sonic</groupId>
+	<artifactId>Sonic</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>TuneHub</name>
 	<description>Spring Boot project for TuneHub</description>
