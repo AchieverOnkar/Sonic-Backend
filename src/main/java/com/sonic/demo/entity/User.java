@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 
-@Entity(name = "user")
+@Entity(name = "users")
 public class User {
 
 	@Id
