@@ -6,5 +6,5 @@ services:
     envVars:
       - key: ENV
         value: "prod"
-    
+    runtime: java
 
