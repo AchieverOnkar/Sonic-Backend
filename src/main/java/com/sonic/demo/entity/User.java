@@ -3,6 +3,7 @@ package com.sonic.demo.entity;
 import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,7 +24,7 @@ public class User {
 	String securityQuestion;
 	String securityAnswer;
 	Boolean isPremium;
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	List<Song> favoriteSongs;
 	public User(int id, String username, String email, String password, String gender, String role, String dob,
 			String securityQuestion, String securityAnswer, Boolean isPremium, List<Song> favoriteSongs) {
