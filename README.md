@@ -1,10 +1,8 @@
 
 Copy code
-# Sonic Backend - Spring Boot
+# ⚡Sonic 
 
-![Sonic Logo](url_to_sonic_logo.png)
-
-Sonic Backend is the Spring Boot-based server-side component of the Sonic music streaming service. It provides a robust backend infrastructure for managing users, artists, playlists, favorite songs, and handling payments.
+Sonic-Backend is the Spring Boot-based server-side component/api of the Sonic music streaming service. It provides a robust backend infrastructure for managing users, artists, playlists, favorite songs, and handling payments.
 
 ## Features
 
@@ -18,21 +16,21 @@ Sonic Backend is the Spring Boot-based server-side component of the Sonic music 
 
 ### Prerequisites
 
-- Java Development Kit (JDK) - version x.x.x
-- Apache Maven - version x.x.x
-- MySQL Database - version x.x.x
+- Java Development Kit (JDK) - version 21
+- Apache Maven - version ---
+- PostgreSQL Database - version 15.0.0
 
 ### Installation
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/sonic-backend.git
+   git clone https://github.com:AchieverOnkar/Sonic-Backend.git
    
 2. **Configure database settings:**
    ```properties
-   spring.datasource.url=jdbc:mysql://localhost:3306/sonic
+   spring.datasource.url=jdbc:postgresql://dpg-cn2u7j2cn0vc738jbv80-a/sonic_db
    spring.datasource.username=root
-    spring.datasource.password=password
+   spring.datasource.password=password
     
 3. **Build the project:**
    ```bash
@@ -43,7 +41,7 @@ Sonic Backend is the Spring Boot-based server-side component of the Sonic music 
    ```bash
    java -jar target/sonic-backend.jar
    
-### Access the API at http://localhost:8080.
+### Access the API at https://sonic-backend.onrender.com.
 
 ### API Documentation
    For detailed API documentation, refer to API.md.
