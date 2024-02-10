@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+img {
+	height: 50px;
+	width: 50px;
+}
+</style>
+</head>
+<body>
+
+	<form method="get" action="/viewUpdatePlaylist">
+		<table border="1">
+			<thead>
+				<tr>
+					<td>Poster</td>
+					<td>Name</td>
+					<td>Total Songs</td>
+					<td>Genre</td>
+					<td>Songs</td>
+					<td>Update</td>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="playlist : ${playlists}">
+					<td><img th:src="${playlist.posterLink}" alt="poster" /></td>
+					<td th:text="${playlist.name}">Playlist name</td>
+					<td th:text="${playlist.songs.size()}">total Songs</td>
+					<td th:text="${playlist.genre}">Playlist genre</td>
+					<td>
+						<ul th:each="songs : ${playlist.songs}">
+							<li><span th:text="${songs.name}"></span> <audio
+									controls="controls">
+									<source th:src="${songs.link}">
+								</audio></li>
+
+						</ul>
+					</td>
+					<td>
+						<button type="submit" name="playlistId" th:value="${playlist.id}">Change</button>
+					</td>
+				</tr>
+
+
+			</tbody>
+
+		</table>
+	</form>
+
+</body>
+</html>

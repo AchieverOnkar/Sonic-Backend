@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,12 +37,15 @@ public class SongController {
 	}
 	
 	//controller to handle view all song request
+	@Transactional(readOnly = true)
 	@GetMapping("/viewAllSongs")
-	public List<Song>  viewAllSongs(Model model) {
-		List<Song> songsList = service.viewAllSongs();
-		System.out.println(songsList);
-//	    model.addAttribute("songsList", songsList);//adding the songsList into model with attribute name songList so that thymeleaf can access the list
-		return songsList;
+	public List<Song> viewAllSongs() {
+	    List<Song> songs = service.viewAllSongs();
+	    songs.forEach(song -> {
+	        // Trigger lazy loading within a transaction
+	        song.getPlaylists().size();
+	    });
+	    return songs;
 	}
 	
 	//controller to handle play song request

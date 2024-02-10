@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+   img{
+     height:50px;
+     width:50px;
+     display: inline;
+   }
+ 
+</style>
+</head>
+<body>
+
+<h1>Create New Playlist</h1>
+    <form action="/addPlaylist" method="post">
+        <label for="">PlayList Name: </label>
+        <input type="text" name="name"/>
+        <br>
+         <label for="">PlayList Poster: </label>
+        <input type="text" name="posterLink"/>
+        <br>
+        <label for="">PlayList Genre: </label>
+        <input type="text" name="genre"/>
+        <br>
+        <div class="SongList" th:each="songs : ${songs}">
+            <img th:src="${songs.posterLink}" alt="poster" />            
+            <label th:text="${songs.artist}"></label>
+            <br>
+            <label th:text="${songs.name}"></label>
+            <input type="checkbox" th:name="songs" th:value="${songs.id}"/>
+        </div>
+        <br>
+        <input type="submit" value="Add PlayList"/>
+       
+    </form>
+
+</body>
+</html>

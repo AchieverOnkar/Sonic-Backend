@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Add Artists</h1>
+<form action="/addArtist" method="post">
+    
+	
+	<label for="">Artist Name: </label>
+        <input type="text" name="name"/>
+        <br>
+        <label for="">Artist cover: </label>
+        <input type="text" name="cover"/>
+        <br>
+         <label for="">Artist profile: </label>
+        <input type="text" name="profile"/>
+        <br>
+        <div class="SongList" th:each="songs : ${songs}">
+            <img th:src="${songs.posterLink}" alt="poster" />            
+            <label th:text="${songs.artist}"></label>
+            <br>
+            <label th:text="${songs.name}"></label>
+            <input type="checkbox" th:name="songs" th:value="${songs.id}"/>
+        </div>
+        <br>
+        <input type="submit" value="Add Artist"/>
+	
+</form>
+
+
+</body>
+</html>

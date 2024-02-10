@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<nav>
+		<button>
+			<a href="/logout">logout</a>
+		</button>
+		<div th:if="${isPremium}">
+		  <h3>Premium user</h3>
+		</div>
+		<div th:unless="${isPremium}">
+			<button>
+				<a href="/pay">Go Premium</a>
+			</button>
+		</div>
+	</nav>
+	<h1>User Home</h1>
+	<h4>Play Songs</h4>
+	<button>
+		<a href="/playSongs">Play</a>
+	</button>
+	<h4>Favorite</h4>
+	<button>
+		<a href="/viewFavorite">View</a>
+	</button>
+	<h4>Subscribe</h4>
+	<button>
+		<a href="/pay">pay</a>
+	</button>
+
+</body>
+</html>

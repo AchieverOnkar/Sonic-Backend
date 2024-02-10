@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h1>Welcome to TuneHub Registeration</h1>
+	<section>
+
+		<form action="/register" method="post">
+			<fieldset>
+
+				<legend>User Registration</legend>
+				<br>
+				
+			    <label for="username">Username: </label> 
+			    <input type="text" name="username" required="required" /> <br> 
+				
+				<label for="email">Email: </label> 
+				<input type="email" name="email" required="required" /> <br> 
+				
+				<label for="password">Password:</label> 
+				<input type="password" name="password" required="required" /> <br>
+
+				<label for="gender">Gender: </label> 
+				<input type="radio" value="male" name="gender" /> 
+				<label for="male">Male</label> 
+				<input type="radio" value="female" name="gender" /> 
+				<label for="female">Female</label>
+				<input type="radio" value="other" name="gender" /> 
+				<label for="other">Other</label> <br> 
+				
+				<label for="role">Role: </label> 
+				<input type="radio" value="user" name="role" /> 
+				<label for="user">User</label> 
+				<input type="radio" value="admin" name="role" /> 
+				<label for="admin">Admin</label> <br>
+				
+				<label for="dob">BirthDay:</label> 
+				<input type="date" name="dob" /> <br>
+				 
+				<label for="securityQuestion">Select Security Question</label> 
+				<select name="securityQuestion" id="securityQuestion" >
+				     <option value="animal"> What is your Favorite Animal?</option>
+				     <option value="food"> What is your Favorite Food?</option>
+				     <option value="color"> What is your Favorite Color?</option>
+				</select>
+				<input type="text" name="securityAnswer" /> 
+				<br> 
+          
+				
+				<input type="submit" value="Register" />
+
+			</fieldset>
+		</form>
+
+
+
+	</section>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <style type="text/css">
+        img {
+            height: 50px;
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<form action="/updatePlaylist" method="post" th:object="${playlist}">
+    <label for="playlistId">PlayList id: </label>
+    <input type="text" id="playlistId" name="id" th:value="${playlist.id}" />
+    <br>
+    <label for="name">PlayList Name: </label>
+    <input type="text" id="name" name="name" th:value="${playlist.name}" />
+    <br>
+    <label for="posterLink">PlayList Poster: </label>
+    <img th:src="${playlist.posterLink}" alt="poster" />
+    <input type="text" id="posterLink" name="posterLink" th:value="${playlist.posterLink}" />
+    <br>
+    <label for="genre">PlayList Genre: </label>
+    <input type="text" id="genre" name="genre" th:value="${playlist.genre}" />
+    <br>
+    
+    <div class="SongList" th:each="song : ${playlist.songs}">
+        <img th:src="${song.posterLink}" alt="poster" />
+        <label th:text="${song.artist}"></label>
+        <br>
+        <label th:text="${song.name}"></label>
+        <input type="checkbox" name="removeSongs" th:value="${song.id}" />
+    </div>
+    <input type="hidden" name="removeSongs" th:if="${removeSongs != null}" th:value="${removeSongs}" />
+
+    <br>
+    <input type="submit" value="Update Playlist" />
+</form>
+
+
+
+</body>
+</html>
