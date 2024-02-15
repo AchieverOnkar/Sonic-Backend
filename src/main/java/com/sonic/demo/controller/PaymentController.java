@@ -30,10 +30,7 @@ public class PaymentController {
 	@Autowired
 	UserService userService;
 
-//	@GetMapping("/pay")
-//	public String pay() {
-//		return "pay";
-//	}
+
 
 	@SuppressWarnings("finally")
 	@PostMapping("/createOrder")
@@ -70,8 +67,9 @@ public class PaymentController {
 		System.out.println("User object to update the prmium status"+user);
 		user.setIsPremium(true);
 		userService.updateUser(user);
+		System.out.println("user status updated"+user);
 		//also seding premium status to user home
-		
+		System.out.println("success");
 		return "success";
 	}
 

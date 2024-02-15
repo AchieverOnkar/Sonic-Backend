@@ -43,6 +43,7 @@ public class ArtistController {
 	@PostMapping("/addArtist")
 	public String createArtist(@RequestBody Artists artist, Model model) {
 		//check if artist exist or not
+		System.out.println("artist recived to add "+artist);
 		boolean artistExists = artistService.artistExists(artist.getName());
 		if(!artistExists) {
 			artistService.createArtist(artist);
@@ -51,6 +52,7 @@ public class ArtistController {
 			//travell through songs and set artist for that songs
 			for(Song song : songs) {
 				song.setArtistObject(artist);
+				System.out.println("song updated with artist"+song);
 				songService.updateSong(song);
 			}
 			System.out.println(artist.getName()+" "+"artist added successfully");

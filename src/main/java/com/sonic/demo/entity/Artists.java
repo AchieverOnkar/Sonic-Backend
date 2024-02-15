@@ -30,7 +30,6 @@ public class Artists {
 	
 	
 	@OneToMany(fetch = FetchType.EAGER)
-//	@JsonBackReference
 	List<Song> songs;
 	
 	
